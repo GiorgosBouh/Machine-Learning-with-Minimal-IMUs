@@ -224,12 +224,5 @@ Important examples include:
 - `project32_early_detection_summary.csv`
 - `project32_feedback_summary_tuned.csv`
 
-## Practical Note for Copying This Folder to a Mac
-
-From your Mac, you can copy this folder with a command like:
-
-```bash
-scp -r ilab@100.98.109.103:/home/ilab/project3/Project_3.0/project3repo /local/path/
-```
-
-Then you can upload that copied folder to your GitHub repository.
+## Permission
+The code in this GitHub repository may be used provided that the accompanying paper is properly cited.(contact gbouchouras@aegean.gr,  bouhouras@yahoo.com) 
