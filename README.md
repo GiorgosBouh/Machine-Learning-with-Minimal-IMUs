@@ -1,4 +1,5 @@
-# Project 3 Paper Code Package
+#Machine Learning with Minimal IMUs 
+#Project 3 Paper Code Package
 
 This folder is a clean copy of the code that supports the methodology of the paper `project31_user_current_ai_clarified.tex`.
 
@@ -235,11 +236,12 @@ Important examples include:
 
 When you decide the GitHub repository name, you can adapt this sentence directly in the paper:
 
-> The code used to generate the features, run the movement-quality analyses, evaluate reduced sensor configurations, and produce the proof-of-concept window-level feedback extension is available in the GitHub repository `<REPO_NAME>`.
+> The code used to generate the features, run the movement-quality analyses, evaluate reduced sensor configurations, and produce the proof-of-concept window-level feedback extension is available in this GitHub repository .
 
 If you want a slightly longer version:
 
-> All code used for the data loading, repetition segmentation, interpretable feature extraction, subject-level classification, sensor-subset analysis, explainability layer, and proof-of-concept window-level feedback analyses is available in the GitHub repository `<REPO_NAME>`.
+> All code used for the data loading, repetition segmentation, interpretable feature extraction, subject-level classification, sensor-subset analysis, explainability layer, and proof-of-concept window-level feedback analyses is available in this GitHub repository
+> The code in this GitHub repository may be used only with the prior consent of the authors.
 
 ## Practical Note for Copying This Folder to a Mac
 
