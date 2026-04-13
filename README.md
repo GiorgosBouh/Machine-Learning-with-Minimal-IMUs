@@ -1,7 +1,9 @@
 #Machine Learning with Minimal IMUs 
 #Project 3 Paper Code Package
 
-This folder is a clean copy of the code that supports the methodology of the paper `project31_user_current_ai_clarified.tex`.
+This folder is a clean copy of the code that supports the methodology of the paper "Machine Learning with Minimal IMUs Can Distinguish Correct from Incorrect Movement and Support Explainable Feedback"
+
+`project31_user_current_ai_clarified.tex`.
 
 The goal of this package is simple:
 
@@ -10,7 +12,7 @@ The goal of this package is simple:
 - keep the Project 3.2 window-level extension in the same place,
 - make it easy to upload the paper code to GitHub later.
 
-This package does **not** include the full dataset and it does **not** include every exploratory script from the larger working directory. It only includes the code that is directly relevant to the paper methodology and the main reported analyses.
+This package includes the code that is directly relevant to the paper methodology and the main reported analyses.
 
 ## Folder Structure
 
@@ -110,17 +112,7 @@ This package covers the code behind the following methodological parts of the ma
 - supporting baseline analyses and figures,
 - the window-level Project 3.2 proof-of-concept extension.
 
-## What Is Not Included
 
-This package does not include:
-
-- the raw dataset itself,
-- the full working directory,
-- old exploratory scripts that were not needed for the paper methodology,
-- submission files from journal templates,
-- generated outputs such as `output/features/*.csv` or `output/figures/*.png`.
-
-Those can be regenerated after the code is run on a machine that also has the GAITEX data.
 
 ## Dependencies
 
