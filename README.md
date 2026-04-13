@@ -224,17 +224,6 @@ Important examples include:
 - `project32_early_detection_summary.csv`
 - `project32_feedback_summary_tuned.csv`
 
-## Suggested Paper Sentence for the Methods Section
-
-When you decide the GitHub repository name, you can adapt this sentence directly in the paper:
-
-> The code used to generate the features, run the movement-quality analyses, evaluate reduced sensor configurations, and produce the proof-of-concept window-level feedback extension is available in this GitHub repository .
-
-If you want a slightly longer version:
-
-> All code used for the data loading, repetition segmentation, interpretable feature extraction, subject-level classification, sensor-subset analysis, explainability layer, and proof-of-concept window-level feedback analyses is available in this GitHub repository
-> The code in this GitHub repository may be used only with the prior consent of the authors.
-
 ## Practical Note for Copying This Folder to a Mac
 
 From your Mac, you can copy this folder with a command like:
