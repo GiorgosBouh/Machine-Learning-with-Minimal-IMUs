@@ -1,5 +1,5 @@
-#Machine Learning with Minimal IMUs 
-#Project 3 Paper Code Package
+# Machine Learning with Minimal IMUs 
+## Project 3 Paper Code Package
 
 This folder is a clean copy of the code that supports the methodology of the paper "Machine Learning with Minimal IMUs Can Distinguish Correct from Incorrect Movement and Support Explainable Feedback"
 
