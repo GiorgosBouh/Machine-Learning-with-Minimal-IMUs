@@ -1,0 +1,5 @@
+task,rule_name,prob_threshold,persistence,score_threshold,is_incorrect_rep,trigger_rate,median_trigger_progress,n_reps
+rd,grid_selected,0.95,2,1.0,0,0.09947643979057591,0.6387665198237557,191
+rd,grid_selected,0.95,2,1.0,1,0.789103690685413,0.1741293532338263,569
+rgs,grid_selected,0.95,3,1.0,0,0.08791208791208792,0.6190498377052065,182
+rgs,grid_selected,0.95,3,1.0,1,0.6457564575645757,0.2312382739212142,542

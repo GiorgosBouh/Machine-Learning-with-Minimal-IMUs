@@ -1,20 +1,40 @@
-# Machine Learning with Minimal IMUs 
-## Project 3 Paper Code Package
+# Project 3.1 Reproducibility Code
 
-This folder is a clean copy of the code that supports the methodology of the paper "Machine Learning with Minimal IMUs Can Distinguish Correct from Incorrect Movement and Support Explainable Feedback"
+This repository contains the code package that supports the paper Interpretable Machine Learning Distinguishes Correct from Incorrect Rehabilitation Movement with Fewer Wearable Sensors, including subject-level movement- quality benchmarks, sensor-reduction analyses, interpretable feedback summaries, and the Project 3.2 window-level proof-of-concept extension.
 
-`project31_user_current_ai_clarified.tex`.
+The package is intended for public release alongside the article so that readers can inspect the analysis logic and reproduce the reported outputs on a machine that also has access to the GAITEX data.
 
-The goal of this package is simple:
+## Scope
 
-- keep together the scripts that turn the GAITEX raw IMU recordings into interpretable features,
-- run the main Project 3.1 analyses used in the paper,
-- keep the Project 3.2 window-level extension in the same place,
-- make it easy to upload the paper code to GitHub later.
+This repository covers the code used for:
 
-This package includes the code that is directly relevant to the paper methodology and the main reported analyses.
+- loading GAITEX IMU recordings and timestamp files,
+- segmenting recordings into repetitions,
+- computing interpretable quaternion-based rotational features,
+- building repetition-level and window-level feature tables,
+- subject-level correct-versus-incorrect benchmarking,
+- full-versus-minimal baseline comparisons,
+- retained multiclass LOSO benchmarking,
+- sensor configuration frontier analysis,
+- shared compact-subset and model-family sensitivity checks,
+- readable explainability summaries derived from explicit segment-feature deviations,
+- segment-ablation and feature-relevance support analyses,
+- Project 3.2 window-level early-detection and feedback simulations,
+- reviewer-driven feedback-rule sweeps used in the revised closed-loop analysis.
 
-## Folder Structure
+## What Is Not Included
+
+This repository does not include:
+
+- the GAITEX raw dataset,
+- the full private working directory,
+- journal submission templates,
+- unrelated exploratory scripts,
+- pre-generated figures or CSV outputs that can be regenerated from the code.
+
+To fully reproduce the paper outputs, the user must have access to the GAITEX data in the expected folder structure.
+
+## Repository Layout
 
 ```text
 project3repo/
@@ -30,106 +50,51 @@ project3repo/
     build_window_features.py
     run_project31_pipeline.py
     run_project32_pipeline.py
-    analysis_sensor_configuration_frontier.py
-    analysis_semantic_feedback.py
-    analysis_project32_closed_loop.py
+    analysis_task_complexity_test.py
+    analysis_all_vs_minimal_table.py
+    analysis_classifier_report.py
     analysis_segment_ablation.py
     analysis_feature_relevance.py
+    analysis_sensor_configuration_frontier.py
+    analysis_reviewer2_model_sensitivity.py
+    analysis_semantic_feedback.py
     analysis_segment_heatmap.py
     analysis_delta_signflip_permutation.py
-    analysis_all_vs_minimal_table.py
+    analysis_project32_closed_loop.py
+    analysis_reviewer2_feedback_rule_sweep.py
 ```
 
-## What Each File Does
+## Main Scripts
 
-### Core data loading and feature extraction
+Core preprocessing:
 
-- `src/gaitex/io.py`
-  Reads the GAITEX file structure, finds the IMU CSV files and timestamp CSV files, and loads them into Python.
+- `src/gaitex/io.py`: data discovery and CSV loading
+- `src/gaitex/segment.py`: repetition segmentation from timestamp ranges
+- `src/gaitex/features.py`: quaternion handling and interpretable rotational feature extraction
+- `src/gaitex/build_features.py`: repetition-level feature extraction
+- `src/gaitex/build_window_features.py`: window-level feature extraction
 
-- `src/gaitex/segment.py`
-  Cuts each recording into individual repetitions using the time ranges from the timestamps files.
+Project 3.1 subject-level analyses:
 
-- `src/gaitex/features.py`
-  Contains the quaternion handling and the interpretable rotational feature calculations used in the paper:
-  mean angular speed, RMS angular speed, peak angular speed, RMS angular acceleration, and rotational range.
+- `src/gaitex/analysis_task_complexity_test.py`: full-vs-minimal baseline comparison
+- `src/gaitex/analysis_all_vs_minimal_table.py`: summary CSV and LaTeX table for the baseline comparison
+- `src/gaitex/analysis_classifier_report.py`: multiclass LOSO benchmark and per-class reports
+- `src/gaitex/analysis_segment_ablation.py`: single-segment ablation benchmark
+- `src/gaitex/analysis_feature_relevance.py`: feature-relevance maps
+- `src/gaitex/analysis_sensor_configuration_frontier.py`: unconstrained and lower-body sensor frontier search
+- `src/gaitex/analysis_reviewer2_model_sensitivity.py`: model-family comparison on full and shared compact subsets
+- `src/gaitex/analysis_semantic_feedback.py`: readable explainability summaries from paired feature deviations
+- `src/gaitex/run_project31_pipeline.py`: convenience entry point for the main revised Project 3.1 pipeline
 
-- `src/gaitex/build_features.py`
-  Runs the full repetition-level feature extraction pipeline and writes `features.csv`.
+Project 3.2 window-level analyses:
 
-- `src/gaitex/qc_plots.py`
-  Produces simple quality-control plots from the extracted features and repetition durations.
-
-### Project 3.1 paper analyses
-
-- `src/gaitex/analysis_sensor_configuration_frontier.py`
-  Tests many sensor combinations and finds the best-performing subsets for correct-versus-incorrect classification.
-
-- `src/gaitex/analysis_semantic_feedback.py`
-  Builds the explainability layer by comparing each error variant against the correct movement and turning the largest changes into readable summaries.
-
-- `src/gaitex/run_project31_pipeline.py`
-  Convenience entry point that runs the main Project 3.1 analysis sequence.
-
-### Baseline and supporting paper figures
-
-- `src/gaitex/analysis_segment_ablation.py`
-  Creates the segment-ablation benchmark used to show that some body regions are more informative than others.
-
-- `src/gaitex/analysis_feature_relevance.py`
-  Estimates which segment-feature combinations matter most for the classifier and produces the feature-relevance plots.
-
-- `src/gaitex/analysis_segment_heatmap.py`
-  Creates the segment-level effect-size heatmap used in the explainability results.
-
-- `src/gaitex/analysis_delta_signflip_permutation.py`
-  Compares the full representation against the minimal representation with paired subject-level testing.
-
-- `src/gaitex/analysis_all_vs_minimal_table.py`
-  Turns the full-versus-minimal comparison into a compact summary table and a LaTeX table.
-
-### Project 3.2 closed-loop extension
-
-- `src/gaitex/build_window_features.py`
-  Creates short-window features from each repetition for the proof-of-concept real-time analysis.
-
-- `src/gaitex/analysis_project32_closed_loop.py`
-  Runs the window-level classification, early detection analysis, explanation tracking, and simulated feedback trigger logic.
-
-- `src/gaitex/run_project32_pipeline.py`
-  Convenience entry point that runs the main Project 3.2 sequence.
-
-## What This Code Covers in the Paper
-
-This package covers the code behind the following methodological parts of the manuscript:
-
-- loading GAITEX IMU and timestamp files,
-- cutting recordings into repetitions,
-- computing interpretable quaternion-based rotational features,
-- subject-level correct-versus-incorrect classification,
-- sensor reduction and sensor frontier analysis,
-- readable explainability summaries,
-- supporting baseline analyses and figures,
-- the window-level Project 3.2 proof-of-concept extension.
-
-
-
-## Dependencies
-
-The package uses the dependencies listed in `requirements.txt`:
-
-- `numpy`
-- `pandas`
-- `scipy`
-- `scikit-learn`
-- `matplotlib`
-- `seaborn`
-- `tqdm`
-- `pyyaml`
+- `src/gaitex/analysis_project32_closed_loop.py`: window-level classification, early detection, explanation tracking, and feedback simulation
+- `src/gaitex/analysis_reviewer2_feedback_rule_sweep.py`: grid search over feedback trigger rules
+- `src/gaitex/run_project32_pipeline.py`: convenience entry point for the window-level revised pipeline
 
 ## Expected Data Layout
 
-The scripts expect a GAITEX-style data folder such as:
+The scripts expect a GAITEX-like directory structure under `data/`, for example:
 
 ```text
 data/
@@ -142,18 +107,16 @@ data/
       timestamps_subject_1_rgs.csv
 ```
 
-The loader is somewhat flexible about exact filenames, but it expects the same general structure:
+The loader is somewhat flexible about exact filenames, but expects:
 
-- one subject folder per participant,
-- one task folder such as `rd` or `rgs`,
-- one segment-registered IMU CSV,
-- one timestamps CSV with repetition start and end times.
+- one folder per subject,
+- one folder per task such as `rd` or `rgs`,
+- one segment-registered IMU CSV per task,
+- one timestamps CSV per task.
 
-## Simple Run Order
+## Environment Setup
 
-Run the commands from the root of the repository.
-
-### 1. Install dependencies
+Run from the repository root.
 
 ```bash
 python -m venv .venv
@@ -161,68 +124,106 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Build repetition-level features
+## Reproducibility Run Order
+
+### 1. Build repetition-level features
 
 ```bash
 PYTHONPATH=src python -m gaitex.build_features --data_root data --out_dir output/features
 ```
 
-This creates:
+Main outputs:
 
 - `output/features/features.csv`
-- quality-control figures in `output/figures/`
+- QC figures under `output/figures/`
 
-### 3. Run the main Project 3.1 paper pipeline
+### 2. Run the revised Project 3.1 subject-level pipeline
 
 ```bash
 PYTHONPATH=src python -m gaitex.run_project31_pipeline
 ```
 
-This runs:
+This pipeline runs:
 
-- the sensor configuration frontier analysis,
-- the semantic feedback and explainability analysis.
+- full-vs-minimal binary benchmarking,
+- baseline summary generation,
+- multiclass LOSO benchmarking,
+- segment ablation,
+- feature relevance,
+- sensor frontier analysis,
+- model-family sensitivity checks,
+- semantic feedback and explainability outputs.
 
-### 4. Run the supporting baseline analyses and figures
-
-```bash
-PYTHONPATH=src python -m gaitex.analysis_segment_ablation
-PYTHONPATH=src python -m gaitex.analysis_feature_relevance
-PYTHONPATH=src python -m gaitex.analysis_segment_heatmap
-PYTHONPATH=src python -m gaitex.analysis_delta_signflip_permutation
-PYTHONPATH=src python -m gaitex.analysis_all_vs_minimal_table
-```
-
-### 5. Run the Project 3.2 window-level extension
+### 3. Run the revised Project 3.2 window-level pipeline
 
 ```bash
 PYTHONPATH=src python -m gaitex.run_project32_pipeline
 ```
 
-This runs:
+This pipeline runs:
 
 - window-level feature extraction,
 - window-level classification,
 - early-detection summaries,
-- explanation tracking,
-- simulated feedback trigger analysis.
+- window-level explanation summaries,
+- feedback simulations,
+- feedback-rule grid search for the revised closed-loop analysis.
 
-## Main Output Files
+## Important Output Files
 
-After running the code, the main output files are expected to appear in:
+Representative outputs include:
 
-- `output/features/`
-- `output/figures/`
+- `output/features/features.csv`
+- `output/features/task_complexity_results.csv`
+- `output/features/task_complexity_folds_all_vs_minimal.csv`
+- `output/features/all_vs_minimal_summary.csv`
+- `output/features/classifier_loso_folds.csv`
+- `output/features/semantic_fingerprint_effects.csv`
+- `output/features/semantic_feedback_variants.csv`
+- `output/features/sensor_frontier_all_subsets.csv`
+- `output/features/sensor_frontier_best_by_count.csv`
+- `output/features/reviewer2_model_subset_checks.csv`
+- `output/features/project32_window_classification_summary.csv`
+- `output/features/project32_early_detection_summary.csv`
+- `output/features/project32_feedback_summary_tuned.csv`
+- `output/features/reviewer2_feedback_grid_selected_summary.csv`
 
-Important examples include:
+Figures are written under `output/figures/`.
 
-- `features.csv`
-- `semantic_fingerprint_effects.csv`
-- `semantic_feedback_variants.csv`
-- `sensor_frontier_*`
-- `project32_window_classification_summary.csv`
-- `project32_early_detection_summary.csv`
-- `project32_feedback_summary_tuned.csv`
+## Dependencies
 
-## Permission
-The code in this GitHub repository may be used provided that the accompanying paper is properly cited.(contact gbouchouras@aegean.gr,  bouhouras@yahoo.com) 
+Dependencies are listed in `requirements.txt` and include:
+
+- `numpy`
+- `pandas`
+- `scipy`
+- `scikit-learn`
+- `matplotlib`
+- `seaborn`
+- `tqdm`
+- `pyyaml`
+
+## Suggested Availability Statement
+
+You can adapt one of the following sentences for the manuscript:
+
+> The code used to generate the interpretable IMU features, run the subject-level movement-quality analyses, evaluate reduced sensor configurations, and produce the proof-of-concept window-level feedback extension is available in the public repository `<REPO_NAME>`.
+
+Or:
+
+> All code used for data loading, repetition segmentation, interpretable feature extraction, subject-level benchmarking, sensor-subset analysis, explainability summaries, and the proof-of-concept window-level analyses is available in the public repository `<REPO_NAME>`.
+
+## Practical Copy Command
+
+From your Mac, copy this folder with:
+
+```bash
+scp -r ilab@100.98.109.103:/home/ilab/project3/Project_3.0/project3repo /Users/user/Documents/project_3.1_local
+```
+
+If you want the copied folder itself to be named exactly `project_3.1_local`, use:
+
+```bash
+scp -r ilab@100.98.109.103:/home/ilab/project3/Project_3.0/project3repo /Users/user/Documents/
+mv /Users/user/Documents/project3repo /Users/user/Documents/project_3.1_local
+```
