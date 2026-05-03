@@ -205,25 +205,5 @@ Dependencies are listed in `requirements.txt` and include:
 
 ## Suggested Availability Statement
 
-You can adapt one of the following sentences for the manuscript:
 
-> The code used to generate the interpretable IMU features, run the subject-level movement-quality analyses, evaluate reduced sensor configurations, and produce the proof-of-concept window-level feedback extension is available in the public repository `<REPO_NAME>`.
-
-Or:
-
-> All code used for data loading, repetition segmentation, interpretable feature extraction, subject-level benchmarking, sensor-subset analysis, explainability summaries, and the proof-of-concept window-level analyses is available in the public repository `<REPO_NAME>`.
-
-## Practical Copy Command
-
-From your Mac, copy this folder with:
-
-```bash
-scp -r ilab@100.98.109.103:/home/ilab/project3/Project_3.0/project3repo /Users/user/Documents/project_3.1_local
-```
-
-If you want the copied folder itself to be named exactly `project_3.1_local`, use:
-
-```bash
-scp -r ilab@100.98.109.103:/home/ilab/project3/Project_3.0/project3repo /Users/user/Documents/
-mv /Users/user/Documents/project3repo /Users/user/Documents/project_3.1_local
 ```
