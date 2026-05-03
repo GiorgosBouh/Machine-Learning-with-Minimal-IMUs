@@ -203,7 +203,5 @@ Dependencies are listed in `requirements.txt` and include:
 - `tqdm`
 - `pyyaml`
 
-## Suggested Availability Statement
-
 
 ```
